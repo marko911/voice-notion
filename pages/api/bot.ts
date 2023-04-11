@@ -26,8 +26,8 @@ bot.on(message("voice"), async (ctx) => {
   await ctx.sendChatAction("typing");
   await ctx.reply("transcribing...");
 
-  const convertedFilePath = await voiceToStream(voice.file_id, bot);
   try {
+  const convertedFilePath = await voiceToStream(voice.file_id, bot);
     console.log("trying to transcribe....");
     const transcription = await postToWhisper(model.openai, convertedFilePath);
     await ctx.sendChatAction("typing");
@@ -41,7 +41,7 @@ bot.on(message("voice"), async (ctx) => {
     await ctx.reply(`added to notion with tags: ${tags.join(", ")}`);
   } catch (err) {
     console.log(err);
-    ctx.reply("error occured: " + err);
+    throw err;
   }
   console.log("done transcribing, sent response");
 });
