@@ -4,7 +4,7 @@ import axios from "axios";
 import stream, { Readable, Stream } from "stream";
 import { existsSync, mkdirSync } from "fs";
 
-const workDir = "./tmp";
+const workDir = "/tmp";
 
 export async function voiceToStream(
   fileId: string,
