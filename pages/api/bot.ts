@@ -59,7 +59,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log('bot request', req.body)
+  console.log("bot request", req.body);
+  try {
+
   await bot.handleUpdate(req.body);
+  }catch(err){
+    res.status(200).send(true)
+  }
   res.status(200).json({ response: "done" });
 }
