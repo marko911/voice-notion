@@ -24,8 +24,7 @@ export async function voiceToStream(
   console.log("fast console buff", { buff });
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
-
-  return await new Promise((resolve) => {
+  return await new Promise((resolve,reject) => {
     ffmpeg(readstream)
       .format("mp3")
       .on("progress", (progress) => {
@@ -37,6 +36,7 @@ export async function voiceToStream(
       })
       .on("error", (err) => {
         console.error("Error while processing the video:", err);
+        reject(err)
       })
       .save(outPath);
   });
