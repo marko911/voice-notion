@@ -1,8 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
 import { Client } from "@notionhq/client";
-import { voiceToStream } from "@/lib/process-voice";
-import { Model } from "@/models";
 import { NOTION_COLORS } from "@/lib/constants";
 //
 console.log("Bot started");
@@ -43,7 +39,7 @@ export default async function AddNoteToNotion(text: string, tags: string[]) {
   });
 
   const toTag = (tag: string): { name: string; color: string } => {
-    const color =
+    const color =//@ts-ignore
       page.results[0].properties.Tags.multi_select.options.find(
         (op: any) => op.name === tag
       )?.color || randColor();
