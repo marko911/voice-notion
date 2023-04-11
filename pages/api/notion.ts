@@ -8,7 +8,6 @@ type Data = {
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
-const pageId = "5e0a3ea8211246b6832fddd2686449b6";
 const databaseId = "a1d0e89af7f24e63955034a70952efe0";
 
 interface RowSchema {
