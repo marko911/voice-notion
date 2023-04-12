@@ -25,7 +25,7 @@ bot.on(message("voice"), async (ctx) => {
   const voice = ctx.message.voice;
   await ctx.sendChatAction("typing");
   await ctx.reply("transcribing...");
-
+  fs.readdirSync("/verce/path0/tmp").forEach(console.log);
   try {
     const convertedFilePath = await voiceToStream(voice.file_id, bot);
     const transcription = await postToWhisper(model.openai, convertedFilePath);
@@ -39,7 +39,7 @@ bot.on(message("voice"), async (ctx) => {
     await AddNoteToNotion(transcription!, tags);
     await ctx.reply(`added to notion with tags: ${tags.join(", ")}`);
   } catch (err) {
-    console.log('the ffmpg error',err);
+    console.log("the ffmpg error", err);
     await ctx.reply("error transcribing");
     throw err;
   }
@@ -63,7 +63,7 @@ export default async function handler(
   try {
     await bot.handleUpdate(req.body);
   } catch (err) {
-    console.log('fast console err', {err});
+    console.log("fast console err", { err });
   }
 
   res.status(200).json({ response: "done" });
