@@ -40,6 +40,7 @@ bot.on(message("voice"), async (ctx) => {
     await ctx.reply(`added to notion with tags: ${tags.join(", ")}`);
   } catch (err) {
     console.log('the ffmpg error',err);
+    await ctx.reply("error transcribing");
     throw err;
   }
   console.log("done transcribing, sent response");

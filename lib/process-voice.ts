@@ -21,7 +21,7 @@ export async function voiceToStream(
   });
 
   const buff = await stream2buffer(response.data);
-  console.log("fast console buff", { buff });
+  console.log("fast console buff  check env",process.env.FFMPEG_PATH);
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
   return await new Promise((resolve,reject) => {
