@@ -22,14 +22,13 @@ export async function voiceToStream(
   });
 
   const buff = await stream2buffer(response.data);
-
   fs.readdir("/", (err, files) => {
     console.log("fast console files", { files, err });
     files?.forEach((file) => {
-      console.log("ffffffffffffffffffffffffffffff", file);
+      console.log("ffffffffffffffffffffffffffffff", __dirname);
     });
 
-      console.log("fast console buff  check env", process.env.FFMPEG_PATH);
+    console.log("fast console buff  check env", process.env.FFMPEG_PATH);
   });
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
