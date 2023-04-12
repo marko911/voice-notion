@@ -27,12 +27,7 @@ bot.on(message("voice"), async (ctx) => {
   await ctx.reply("transcribing...");
 
     console.log('zzzzzzzzzzzzzzzzzzz')
-  fs.readdir("/", (err, files) => {
-    console.log('fast console files', {files});
-    files?.forEach((file) => {
-      console.log("ffffffffffffffffffffffffffffff", file);
-    });
-  });
+  
   try {
     const convertedFilePath = await voiceToStream(voice.file_id, bot);
     const transcription = await postToWhisper(model.openai, convertedFilePath);
