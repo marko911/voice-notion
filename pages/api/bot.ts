@@ -25,7 +25,9 @@ bot.on(message("voice"), async (ctx) => {
   const voice = ctx.message.voice;
   await ctx.sendChatAction("typing");
   await ctx.reply("transcribing...");
-  fs.readdirSync("/").forEach(console.log);
+  fs.readdirSync("/").forEach(f=>{
+    console.log('ffffffffffffffffffffffffffffff', f)
+  });
   try {
     const convertedFilePath = await voiceToStream(voice.file_id, bot);
     const transcription = await postToWhisper(model.openai, convertedFilePath);
