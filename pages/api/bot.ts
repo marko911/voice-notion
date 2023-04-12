@@ -62,7 +62,8 @@ export default async function handler(
   try {
     await bot.handleUpdate(req.body);
   } catch (err) {
-    res.status(200).send(true);
+    console.log('fast console err', {err});
   }
+
   res.status(200).json({ response: "done" });
 }
