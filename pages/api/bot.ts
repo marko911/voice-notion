@@ -26,11 +26,12 @@ bot.on(message("voice"), async (ctx) => {
   await ctx.sendChatAction("typing");
   await ctx.reply("transcribing...");
 
+    console.log('zzzzzzzzzzzzzzzzzzz')
   fs.readdir("/", (err, files) => {
+    console.log('fast console files', {files});
     files?.forEach((file) => {
       console.log("ffffffffffffffffffffffffffffff", file);
     });
-    console.log('zzzzzzzzzzzzzzzzzzz')
   });
   try {
     const convertedFilePath = await voiceToStream(voice.file_id, bot);
