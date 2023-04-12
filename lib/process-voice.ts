@@ -3,7 +3,7 @@ import { Telegraf } from "telegraf";
 import axios from "axios";
 import stream, { Readable, Stream } from "stream";
 import { existsSync, mkdirSync } from "fs";
-import fs from 'fs'
+import fs from "fs";
 
 const workDir = "/tmp";
 
@@ -22,14 +22,14 @@ export async function voiceToStream(
   });
 
   const buff = await stream2buffer(response.data);
-  console.log("fast console buff  check env", process.env.FFMPEG_PATH);
 
   fs.readdir("/", (err, files) => {
-    
-    console.log("fast console files", { files,err });
+    console.log("fast console files", { files, err });
     files?.forEach((file) => {
       console.log("ffffffffffffffffffffffffffffff", file);
     });
+
+      console.log("fast console buff  check env", process.env.FFMPEG_PATH);
   });
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
