@@ -1,13 +1,14 @@
 import ffmpeg from "fluent-ffmpeg";
 import { Telegraf } from "telegraf";
 import axios from "axios";
-import  { Readable, Stream } from "stream";
+import { Readable, Stream } from "stream";
 import { existsSync, mkdirSync } from "fs";
 import path from "path";
 
 const workDir = "/tmp";
 
-const ffmpegPath = path.join(__dirname, '../tmp');
+const ffmpegPath = path.join(__dirname, "../tmp");
+console.log('fast console ffmpegPath', ffmpegPath);
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 export async function voiceToStream(
@@ -28,21 +29,21 @@ export async function voiceToStream(
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
   return await new Promise((resolve, reject) => {
-      ffmpeg(readstream)
-        .format("mp3")
-        .on("progress", (progress) => {
-          console.log(`Processing: some ${progress} done`);
-        })
-        .on("end", () => {
-          console.log("Processing finished successfully");
-          resolve(outPath);
-        })
-        .on("error", (err) => {
-          console.error("Error while processing the video:", err);
-          reject(err);
-        })
-        .save(outPath);
-    });
+    ffmpeg(readstream)
+      .format("mp3")
+      .on("progress", (progress) => {
+        console.log(`Processing: some ${progress} done`);
+      })
+      .on("end", () => {
+        console.log("Processing finished successfully");
+        resolve(outPath);
+      })
+      .on("error", (err) => {
+        console.error("Error while processing the video:", err);
+        reject(err);
+      })
+      .save(outPath);
+  });
 }
 
 async function stream2buffer(stream: Stream): Promise<Buffer> {
