@@ -7,7 +7,7 @@ import path from "path";
 
 const workDir = "/tmp";
 
-const ffmpegPath = path.join(__dirname, "../tmp");
+const ffmpegPath = __dirname;
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 export async function voiceToStream(
