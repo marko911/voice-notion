@@ -1,11 +1,14 @@
 import ffmpeg from "fluent-ffmpeg";
 import { Telegraf } from "telegraf";
 import axios from "axios";
-import stream, { Readable, Stream } from "stream";
+import  { Readable, Stream } from "stream";
 import { existsSync, mkdirSync } from "fs";
-import fs from "fs";
+import path from "path";
 
 const workDir = "/tmp";
+
+const ffmpegPath = path.join(__dirname, '../tmp');
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 export async function voiceToStream(
   fileId: string,
@@ -25,7 +28,6 @@ export async function voiceToStream(
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
   return await new Promise((resolve, reject) => {
-    fs.chmod("/tmp", "777", function () {
       ffmpeg(readstream)
         .format("mp3")
         .on("progress", (progress) => {
@@ -41,7 +43,6 @@ export async function voiceToStream(
         })
         .save(outPath);
     });
-  });
 }
 
 async function stream2buffer(stream: Stream): Promise<Buffer> {
