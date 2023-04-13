@@ -6,7 +6,7 @@ import { existsSync, mkdirSync } from "fs";
 
 const workDir = "/tmp";
 
-ffmpeg.setFfmpegPath("/tmp");
+ffmpeg.setFfmpegPath("/tmp/ffmpeg");
 
 export async function voiceToStream(
   fileId: string,
