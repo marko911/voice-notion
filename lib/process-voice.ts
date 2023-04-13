@@ -3,12 +3,10 @@ import { Telegraf } from "telegraf";
 import axios from "axios";
 import { Readable, Stream } from "stream";
 import { existsSync, mkdirSync } from "fs";
-import path from "path";
 
 const workDir = "/tmp";
 
-const ffmpegPath = __dirname;
-ffmpeg.setFfmpegPath(ffmpegPath);
+ffmpeg.setFfmpegPath("/tmp");
 
 export async function voiceToStream(
   fileId: string,
@@ -18,7 +16,6 @@ export async function voiceToStream(
     mkdirSync(workDir);
   }
 
-  console.log("zzzzzzzzzzzzzzzzzzz", ffmpegPath);
   const fileLink = await bot.telegram.getFileLink(fileId);
   const response = await axios({
     method: "GET",
