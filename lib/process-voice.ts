@@ -4,10 +4,11 @@ import axios from "axios";
 import { Readable, Stream } from "stream";
 import { existsSync, mkdirSync } from "fs";
 import fs from "fs";
+import pathToFfmpeg from "ffmpeg-static";
 
 const workDir = "/tmp";
 
-ffmpeg.setFfmpegPath("/tmp/ffmpeg");
+ffmpeg.setFfmpegPath(pathToFfmpeg!);
 
 export async function voiceToStream(
   fileId: string,
