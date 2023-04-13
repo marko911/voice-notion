@@ -25,25 +25,23 @@ export async function voiceToStream(
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
   return await new Promise((resolve, reject) => {
-
-  fs.chmod('/tmp/ffmpeg', '777', function(){
-ffmpeg(readstream)
-      .format("mp3")
-      .on("progress", (progress) => {
-        console.log(`Processing: some ${progress} done`);
-      })
-      .on("end", () => {
-        console.log("Processing finished successfully");
-        resolve(outPath);
-      })
-      .on("error", (err) => {
-        console.error("Error while processing the video:", err);
-        reject(err);
-      })
-      .save(outPath);
+    fs.chmod("/tmp", "777", function () {
+      ffmpeg(readstream)
+        .format("mp3")
+        .on("progress", (progress) => {
+          console.log(`Processing: some ${progress} done`);
+        })
+        .on("end", () => {
+          console.log("Processing finished successfully");
+          resolve(outPath);
+        })
+        .on("error", (err) => {
+          console.error("Error while processing the video:", err);
+          reject(err);
+        })
+        .save(outPath);
+    });
   });
-  });
-    
 }
 
 async function stream2buffer(stream: Stream): Promise<Buffer> {
