@@ -8,7 +8,6 @@ import path from "path";
 const workDir = "/tmp";
 
 const ffmpegPath = path.join(__dirname, "../tmp");
-console.log('fast console ffmpegPath', ffmpegPath);
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 export async function voiceToStream(
@@ -18,6 +17,8 @@ export async function voiceToStream(
   if (!existsSync(workDir)) {
     mkdirSync(workDir);
   }
+
+  console.log("zzzzzzzzzzzzzzzzzzz", ffmpegPath);
   const fileLink = await bot.telegram.getFileLink(fileId);
   const response = await axios({
     method: "GET",
