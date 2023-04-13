@@ -24,9 +24,10 @@ export async function voiceToStream(
   const buff = await stream2buffer(response.data);
   const readstream = Readable.from(buff);
   const outPath = `${workDir}/${fileId}-output.mp3`;
-  fs.chmodSync('/tmp', 0o777);
   return await new Promise((resolve, reject) => {
-    ffmpeg(readstream)
+
+  fs.chmod('/tmp/ffmpeg', '777', function(){
+ffmpeg(readstream)
       .format("mp3")
       .on("progress", (progress) => {
         console.log(`Processing: some ${progress} done`);
@@ -41,6 +42,8 @@ export async function voiceToStream(
       })
       .save(outPath);
   });
+  });
+    
 }
 
 async function stream2buffer(stream: Stream): Promise<Buffer> {
