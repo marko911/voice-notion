@@ -3,6 +3,7 @@ import { Telegraf } from "telegraf";
 import axios from "axios";
 import { Readable, Stream } from "stream";
 import { existsSync, mkdirSync } from "fs";
+import fs from "fs";
 
 const workDir = "/tmp";
 
@@ -25,6 +26,8 @@ export async function voiceToStream(
 
   const buff = await stream2buffer(response.data);
   const readstream = Readable.from(buff);
+  const files = fs.readdirSync(workDir);
+  console.log("fast console files", { files });
   const outPath = `${workDir}/${fileId}-output.mp3`;
   return await new Promise((resolve, reject) => {
     ffmpeg(readstream)
