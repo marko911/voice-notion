@@ -21,7 +21,7 @@ bot.help((ctx) => {
 });
 
 bot.on(message("voice"), async (ctx) => {
-  console.log("voice");
+  console.log("voice note received");
   const voice = ctx.message.voice;
   await ctx.sendChatAction("typing");
   await ctx.reply("transcribing...");
