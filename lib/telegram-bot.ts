@@ -31,11 +31,12 @@ bot.on(message("voice"), async (ctx) => {
     const transcription = await postToWhisper(model.openai, convertedFilePath);
     await ctx.sendChatAction("typing");
     await ctx.reply("transcribed: " + transcription!);
-    await ctx.reply('adding to notion...');
+    await ctx.reply("adding to notion...");
 
     fs.unlinkSync(convertedFilePath);
 
     const tags = await model.getTags(transcription!);
+    console.log("tags", tags);
     await AddNoteToNotion(transcription!, tags);
     await ctx.reply(`added to notion with tags: ${tags.join(", ")}`);
   } catch (err) {
@@ -54,5 +55,14 @@ bot.on(message("text"), async (ctx) => {
   }
 });
 
-bot.launch();
+// Only run bot.launch() for local development, not on Vercel
+if (process.env.NODE_ENV === "development" && !process.env.VERCEL) {
+  bot.launch();
+  console.log("Bot launched for local development (long polling)");
+} else if (process.env.VERCEL) {
+  console.log(
+    "Bot launch (long polling) skipped on Vercel. Webhook should be used."
+  );
+}
+
 export default bot;

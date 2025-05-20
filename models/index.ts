@@ -10,7 +10,7 @@ const params = {
   verbose: true,
   temperature: 1,
   openAIApiKey,
-  modelName: "gpt-4",
+  modelName: "gpt-4o-mini",
   maxConcurrency: 1,
   maxTokens: 4000,
   maxRetries: 5,
@@ -40,7 +40,6 @@ export class Model {
           Return it as tags, at most 3 tags, return as a comma separated list`
       ),
     ]);
-
 
     try {
       console.log("parsing json....type:", typeof res.text);
